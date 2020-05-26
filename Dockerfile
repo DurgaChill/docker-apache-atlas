@@ -2,7 +2,6 @@ FROM scratch
 FROM ubuntu:18.04
 LABEL maintainer="vadim@clusterside.com"
 ARG VERSION=2.0.0
-USER 1001
 
 RUN apt-get update \
     && apt-get -y upgrade \
@@ -38,7 +37,7 @@ COPY atlas_start.py.patch atlas_config.py.patch /opt/apache-atlas-${VERSION}/bin
 COPY pre-conf/atlas-application.properties /opt/apache-atlas-${VERSION}/conf/atlas-application.properties
 COPY pre-conf/atlas-env.sh /opt/apache-atlas-${VERSION}/conf/atlas-env.sh
 
-RUN chown -R 1001:root /opt
+RUN chmod -R 777 /opt/apache-atlas-2.0.0
 
 RUN cd /opt/apache-atlas-${VERSION}/bin \
     && patch -b -f < atlas_start.py.patch \
@@ -46,5 +45,7 @@ RUN cd /opt/apache-atlas-${VERSION}/bin \
 
 RUN cd /opt/apache-atlas-${VERSION}/bin \
     && ./atlas_start.py -setup || true
+
+USER 1001
 
 VOLUME ["/opt/apache-atlas-2.0.0/conf", "/opt/apache-atlas-2.0.0/logs"]
