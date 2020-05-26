@@ -38,7 +38,7 @@ COPY atlas_start.py.patch atlas_config.py.patch /opt/apache-atlas-${VERSION}/bin
 COPY pre-conf/atlas-application.properties /opt/apache-atlas-${VERSION}/conf/atlas-application.properties
 COPY pre-conf/atlas-env.sh /opt/apache-atlas-${VERSION}/conf/atlas-env.sh
 
-RUN chown -R 1001:root /home/node/app
+RUN chown -R 1001:root /opt
 
 RUN cd /opt/apache-atlas-${VERSION}/bin \
     && patch -b -f < atlas_start.py.patch \
