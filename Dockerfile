@@ -6,7 +6,7 @@ ARG VERSION=2.0.0
 RUN apt-get update \
     && apt-get -y upgrade \
     && apt-get -y install apt-utils \
-    && apt-get -y install curl
+    && apt-get -y install curl \
     && apt-get -y install \
         maven \
         wget \
